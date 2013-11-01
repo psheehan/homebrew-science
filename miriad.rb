@@ -6,6 +6,9 @@ class Miriad < Formula
   sha1 'ea882fd993e808af98932e75f4990b97ea9f0669'
   keg_only "This is just the way that MIRIAD works."
 
+  depends_on :x11
+  depends_on :fortran
+
   def install
     ENV.deparallelize
     ENV.no_optimization
