@@ -14,6 +14,16 @@ class Lime < Formula
     ENV.deparallelize
     ENV.no_optimization
 
+    inreplace 'lime', '$PATHTOLIME', '`brew --prefix`/Cellar/lime/1.3/'
+    inreplace 'Makefile' do |s|
+        s.gsub! '/opt/local/', '`brew --prefix`/'
+        s.gsub! '${PATHTOLIME}', '`brew --prefix`/Cellar/lime/1.3'
+    end
+    inreplace 'src/grid.c', '<qhull/', '<libqhull/'
+    inreplace 'src/smooth.c', '<qhull/', '<libqhull/'
+    inreplace 'src/writefits.c', '<cfitsio/', '<'
+
+    bin.install('lime')
     prefix.install Dir['*']
   end
 
