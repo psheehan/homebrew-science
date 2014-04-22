@@ -5,7 +5,6 @@ class Python3 < Formula
   head 'http://hg.python.org/cpython', :using => :hg, :branch => '3.2'
   url 'http://www.python.org/ftp/python/3.2.5/Python-3.2.5.tgz'
   sha1 'ed8d5529d2aebc36b53f4e0a0c9e6728'
-  revision 1
 
   #bottle do
   #  sha1 "bcf43a9f8f5f587a86bdc680dd735a853fa3a8a5" => :mavericks
