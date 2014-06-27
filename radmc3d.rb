@@ -11,7 +11,7 @@ class Radmc3d < Formula
   def install
     ENV.deparallelize
     ENV.no_optimization
-    system "make", "-C", "version_0.38/src/"
+    system "make", "-C", "radmc-3d/version_0.38/src/"
     system "mkdir", "-p", "#{prefix}/bin"
     system "cp", "version_0.38/src/radmc3d", "#{prefix}/bin/"
   end
