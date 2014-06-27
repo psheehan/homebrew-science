@@ -11,6 +11,7 @@ class Radmc3d < Formula
   def install
     ENV.deparallelize
     ENV.no_optimization
+    inreplace 'version_0.38/src/Makefile', 'OPTIM = -O2', 'OPTIM = -O2 -fopenmp'
     system "make", "-C", "version_0.38/src/"
     system "mkdir", "-p", "#{prefix}/bin"
     system "cp", "version_0.38/src/radmc3d", "#{prefix}/bin/"
