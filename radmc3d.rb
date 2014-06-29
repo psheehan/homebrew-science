@@ -8,12 +8,18 @@ class Radmc3d < Formula
 
   depends_on :fortran
 
+  option "with-openmp", "Include OpenMP support for parallel processing."
+
   def install
     ENV.deparallelize
     ENV.no_optimization
-    inreplace 'version_0.38/src/Makefile', 'OPTIM = -O2', 'OPTIM = -O2 -fopenmp'
+
+    if build.with? "openmp"
+        inreplace 'version_0.38/src/Makefile', 'OPTIM = -O2', 'OPTIM = -O2 -fopenmp'
+    end
+
     system "make", "-C", "version_0.38/src/"
-    system "mkdir", "-p", "#{prefix}/bin"
-    system "cp", "version_0.38/src/radmc3d", "#{prefix}/bin/"
+
+    bin.install "version_0.38/src/radmc3d"
   end
 end
