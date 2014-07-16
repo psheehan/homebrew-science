@@ -20,8 +20,12 @@ class Radmc3d < Formula
 
     # Hopefully fix a bug in the MRW part of the code.
     inreplace 'version_0.38/src/montecarlo_module.f90', 'mrw_cell_uses_mrw(ray_index) = .true.', '!mrw_cell_uses_mrw(ray_index) = .true.'
-    #inreplace 'version_0.38/src/montecarlo_module.f90', '(r.lt.cellx0(1)).or.(r.gt.cellx1(1))', '(r.lt.cellx0(1)*(1.0-1d-11)).or.(r.gt.cellx1(1)*(1.0+1d-11))'
-    #inreplace 'version_0.38/src/montecarlo_module.f90', "write(stdo,*) '  r = ',r,', range = ',cellx0(1),cellx1(1)", "write(stdo,*) '  r = ',r,', range = ',cellx0(1)*(1.0-1d-11),cellx1(1)*(1.0+1d-11)"
+
+    # Stop letting the STOP 50209 message appear, and print a message to make
+    # a note that this was done, because I'm not convinced that the fix is
+    # kosher.
+    #inreplace 'version_0.38/src/montecarlo_module.f90', 'stop 50209', "then\n        ispec = 1\n        write(stdo,*) 'WARNING: stop 50209 removed. Setting ispec = 1 on error.\n     endif'"
+    inreplace 'version_0.38/src/montecarlo_module.f90', 'stop 50209', 'ispec = 1'
 
     system "make", "-C", "version_0.38/src/"
 
