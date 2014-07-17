@@ -2,8 +2,8 @@ require 'formula'
 
 class Hyperion < Formula
   homepage 'www.hyperion-rt.org'
-  url 'https://pypi.python.org/packages/source/H/Hyperion/hyperion-0.9.2.tar.gz'
-  sha1 'a4321a9ce695c477176622edd1bf5646bfdc7dce'
+  url 'https://pypi.python.org/packages/source/H/Hyperion/Hyperion-0.9.4.tar.gz'
+  sha1 '01eee8bdcc73b075a252a6e13a315d1e31b6afab'
 
   depends_on 'hdf5' => '--enable-fortran'
   depends_on 'mpich2'
