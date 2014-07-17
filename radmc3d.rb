@@ -10,6 +10,9 @@ class Radmc3d < Formula
 
   option "with-openmp", "Include OpenMP support for parallel processing."
 
+  patch :DATA
+  patch :p0, :DATA
+
   def install
     ENV.deparallelize
     ENV.no_optimization
@@ -18,17 +21,35 @@ class Radmc3d < Formula
         inreplace 'version_0.38/src/Makefile', 'OPTIM = -O2', 'OPTIM = -O2 -fopenmp'
     end
 
-    # Hopefully fix a bug in the MRW part of the code.
-    inreplace 'version_0.38/src/montecarlo_module.f90', 'mrw_cell_uses_mrw(ray_index) = .true.', '!mrw_cell_uses_mrw(ray_index) = .true.'
-
-    # Stop letting the STOP 50209 message appear, and print a message to make
-    # a note that this was done, because I'm not convinced that the fix is
-    # kosher.
-    #inreplace 'version_0.38/src/montecarlo_module.f90', 'stop 50209', "then\n        ispec = 1\n        write(stdo,*) 'WARNING: stop 50209 removed. Setting ispec = 1 on error.\n     endif'"
-    inreplace 'version_0.38/src/montecarlo_module.f90', 'stop 50209', 'ispec = 1'
-
     system "make", "-C", "version_0.38/src/"
 
     bin.install "version_0.38/src/radmc3d"
   end
 end
+
+__END__
+diff --git a/version_0.38/src/montecarlo_module.f90 b/version_0.38/src/montecarlo_module.f90
+index 075e1e5..e6961b1 100644
+--- a/version_0.38/src/montecarlo_module.f90
++++ b/version_0.38/src/montecarlo_module.f90
+@@ -7549,7 +7549,10 @@ subroutine pick_randomfreq_db(nspec,temp,mc_enerpart,inupick)
+   if(dust_nr_species.gt.1) then 
+      rn = ran2(iseed)*enercum(dust_nr_species+1)
+      call hunt(enercum,dust_nr_species,rn,ispec)
+-     if((ispec.lt.1).or.(ispec.gt.dust_nr_species)) stop 50209
++     if((ispec.lt.1).or.(ispec.gt.dust_nr_species)) then
++        write(stdo,*) 'WARNING: stop 50209 removed. Setting ispec = 1 on error.'
++        ispec = 1
++     endif
+   else
+      ispec = 1
+   endif
+@@ -8719,7 +8722,7 @@ subroutine modified_random_walk(cellx0,cellx1,pos,dir,energy,enerphot,     &
+            if((r.lt.cellx0(1)).or.(r.gt.cellx1(1))) then
+               write(stdo,*) 'ERROR in MRW: position out of r range'
+               write(stdo,*) '  r = ',r,', range = ',cellx0(1),cellx1(1)
+-              stop
++              notescaped = .false.
+            endif
+            if(idim.ge.2) then
+               if((theta.lt.cellx0(2)).or.(theta.gt.cellx1(2))) then
