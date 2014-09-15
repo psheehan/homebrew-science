@@ -14,5 +14,6 @@ class Casa < Formula
     if build.with? "system-xml"
         system "rm", "#{prefix}/lib64/libxml2.so.2"
         system "ln", "-sf", "/usr/lib64/libxml2.so.2.7.7", "#{prefix}/lib64/libxml2.so.2"
+    end
   end
 end
