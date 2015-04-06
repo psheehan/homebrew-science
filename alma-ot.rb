@@ -2,9 +2,9 @@ require 'formula'
 
 class AlmaOt < Formula
   homepage ''
-  url 'https://almascience.nrao.edu/almaot/cycle2/AlmaOT.tgz'
-  sha1 'b9991ece3784d4251a03f55e2e4a5316038f00b7'
-  version '2.0'
+  url 'https://almascience.nrao.edu/almaot/cycle3/AlmaOT.tgz'
+  sha1 'a02ee0750225d9ab6473450a54054421b67eb357'
+  version '3.0'
 
   def install
     inreplace 'setup/Setup-Linux.sh', '$PWD', "#{HOMEBREW_PREFIX}/Cellar/alma-ot/2.0/"
