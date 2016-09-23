@@ -7,7 +7,7 @@ require 'formula'
 class Ds9Darwinmountainlion < Formula
   homepage ''
   url 'http://hea-www.harvard.edu/RD/ds9/download/darwinmountainlion/ds9.darwinmountainlion.7.2.tar.gz'
-  sha1 '4d7d17fd619ef5aa2fc14618811207faad797d76'
+  sha256 '4d7d17fd619ef5aa2fc14618811207faad797d76'
 
   def install
       bin.install('ds9')
