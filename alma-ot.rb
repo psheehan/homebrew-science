@@ -3,7 +3,7 @@ require 'formula'
 class AlmaOt < Formula
   homepage ''
   url 'https://almascience.nrao.edu/almaot/cycle3/AlmaOT.tgz'
-  sha1 'a02ee0750225d9ab6473450a54054421b67eb357'
+  sha256 'a02ee0750225d9ab6473450a54054421b67eb357'
   version '3.0'
 
   def install
