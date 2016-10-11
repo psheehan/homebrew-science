@@ -3,7 +3,7 @@ require 'formula'
 class Lime < Formula
   homepage ''
   url 'http://www.nbi.dk/~brinch/LimePackage/LimePackage1.3.tar.gz'
-  sha1 'a4192b72d9350103a73a49708b4d1f6c8fbbfcae'
+  sha256 'a4192b72d9350103a73a49708b4d1f6c8fbbfcae'
   version '1.3'
 
   depends_on 'cfitsio'
