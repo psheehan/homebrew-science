@@ -20,7 +20,7 @@ class Radmc3d < Formula
 
     system "make", "-C", "version_0.40/src/"
 
-    bin.install "version_0.40/src/radmc3d"
+    bin.install "version_0.41/src/radmc3d"
   end
 end
 
