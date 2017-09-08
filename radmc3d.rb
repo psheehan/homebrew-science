@@ -12,13 +12,12 @@ class Radmc3d < Formula
 
   def install
     ENV.deparallelize
-    ENV.no_optimization
 
     if build.with? "openmp"
         inreplace 'version_0.40/src/Makefile', 'OPTIM = -O2', 'OPTIM = -O2 -fopenmp'
     end
 
-    system "make", "-C", "version_0.40/src/"
+    system "make", "-C", "version_0.41/src/"
 
     bin.install "version_0.41/src/radmc3d"
   end
