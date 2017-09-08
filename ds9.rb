@@ -7,7 +7,7 @@ require 'formula'
 class Ds9 < Formula
   homepage ''
   url 'http://ds9.si.edu/download/centos7/ds9.centos7.7.5.tar.gz'
-  sha1 '858f1d33bcdbd1c9c684634bad688373ae7f1a51e70d7dc40bf45e9efd119f8a'
+  sha256 '858f1d33bcdbd1c9c684634bad688373ae7f1a51e70d7dc40bf45e9efd119f8a'
   version '7.5'
 
   # depends_on 'cmake' => :build
