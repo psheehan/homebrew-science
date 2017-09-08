@@ -6,9 +6,9 @@ require 'formula'
 
 class Ds9 < Formula
   homepage ''
-  url 'http://hea-www.harvard.edu/RD/ds9/download/linux64/ds9.linux64.7.2.tar.gz'
-  sha1 '6e97b3a9a18c9e8cdd416a195c67d8a63872647b'
-  version '7.2'
+  url 'http://ds9.si.edu/download/centos7/ds9.centos7.7.5.tar.gz'
+  sha1 '858f1d33bcdbd1c9c684634bad688373ae7f1a51e70d7dc40bf45e9efd119f8a'
+  version '7.5'
 
   # depends_on 'cmake' => :build
   #depends_on :x11 # if your formula requires any X11/XQuartz components
