@@ -10,6 +10,10 @@ class Radmc3d < Formula
 
   option "with-openmp", "Include OpenMP support for parallel processing."
 
+  def patches 
+    DATA
+  end
+
   def install
     ENV.deparallelize
 
@@ -24,3 +28,20 @@ class Radmc3d < Formula
 end
 
 __END__
+diff --git a/version_0.41/src/main.f90 b/version_0.41/src/main.f90
+index 6c66014..69fa16c 100644
+--- a/version_0.41/src/main.f90
++++ b/version_0.41/src/main.f90
+@@ -2336,6 +2336,12 @@ subroutine read_radmcinp_file()
+      call parse_input_double ('camera_localobs_zenith@       ',camera_localobs_zenith)
+      call parse_input_double ('camera_spher_cavity_relres@   ',camera_spher_cavity_relres)
+ !     call parse_input_double ('camera_min_aspectratio@       ',camera_min_aspectratio)
++     call parse_input_integer('camera_scatsrc_allfreq@       ',idum)
++     if(idum.eq.0) then
++         camera_scatsrc_allfreq = .false.
++     else
++         camera_scatsrc_allfreq = .true.
++     endif
+      call parse_input_double ('camera_min_dangle@            ',mindang)
+      call parse_input_double ('camera_max_dangle@            ',camera_max_dangle)
+      call parse_input_double ('camera_min_drr@               ',mindrr)
