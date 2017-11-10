@@ -373,6 +373,28 @@ index 6c66014..ead03b9 100644
  !     call parse_input_double ('lines_maxdoppler@             ',lines_maxdoppler)
       call parse_input_integer('lines_mode@                   ',lines_mode)
       call parse_input_integer('lines_autosubset@             ',iautosubset)
+diff --git a/version_0.41/src/montecarlo_module.f90 b/version_0.41/src/montecarlo_module.f90
+index bff63c3..94ea7d5 100644
+--- a/version_0.41/src/montecarlo_module.f90
++++ b/version_0.41/src/montecarlo_module.f90
+@@ -8732,6 +8732,17 @@ subroutine pick_randomfreq_db(nspec,temp,mc_enerpart,inupick)
+   do ispec=1,dust_nr_species
+      enercum(ispec+1) = enercum(ispec) + mc_enerpart(ispec)
+   enddo
++  ! BUGFIX:
++  ! It appears possible that if the MRW energy added to the cell is so small
++  ! that it incurs overflow errors, then mc_enerpart(:) == 0, and hunt will
++  ! fail. In that case, weight the liklihood of reemission by density instead
++  ! of energy. -Patrick Sheehan
++  if(enercum(dust_nr_species).eq.0) then
++     enercum(1) = 0.d0
++     do ispec=1,dust_nr_species
++        enercum(ispec+1) = enercum(ispec) + dustdens(ispec,ray_index)
++     enddo
++  endif
+   if(dust_nr_species.gt.1) then 
+      rn = ran2(iseed)*enercum(dust_nr_species+1)
+ !    BUGFIX by Seokho Lee 24.02.2015:
 diff --git a/version_0.41/src/rtglobal_module.f90 b/version_0.41/src/rtglobal_module.f90
 index 5b7c14a..09ce3e4 100644
 --- a/version_0.41/src/rtglobal_module.f90
@@ -487,3 +509,4 @@ index b220a67..823a893 100644
    if(allocated(sources_align_mu)) deallocate(sources_align_mu)
    if(allocated(sources_align_orth)) deallocate(sources_align_orth)
    if(allocated(sources_align_para)) deallocate(sources_align_para)
+
