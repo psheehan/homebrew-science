@@ -4,7 +4,7 @@ class Radmc3d < Formula
   homepage 'http://www.ita.uni-heidelberg.de/~dullemond/software/radmc-3d/'
   url 'http://www.ita.uni-heidelberg.de/~dullemond/software/radmc-3d/radmc-3d_v0.41_07.07.17.zip'
   sha256 '11dea10c3508dc5aaea68fad01fa9123fe62e490b1c8c0d603a78a4c08da05e9'
-  version '0.41_107.07.17'
+  version '0.41_107.07.17_2'
 
   depends_on 'gcc'
   depends_on 'glibc'
@@ -23,6 +23,26 @@ class Radmc3d < Formula
 end
 
 __END__
+diff --git a/version_0.41/src/amrray_module.f90 b/version_0.41/src/amrray_module.f90
+index d39b9e3..9e02f66 100644
+--- a/version_0.41/src/amrray_module.f90
++++ b/version_0.41/src/amrray_module.f90
+@@ -5571,7 +5571,14 @@ else
+             pc    = ct2*(ray_cart_x**2+ray_cart_y**2)-st2*ray_cart_z**2
+             write(stdo,*) pa,pb/r0,pc/r0**2
+             write(stdo,*) 4*pa*pc/pb**2
+-            stop 1132
++            !stop 1132
++            write(stdo,*) 'Fixing by adjusting the current cell...'
++            if(r0>bxi(2,1)*oneplust) amrray_ix_next = amrray_ix_next + 1
++            if(r0<bxi(1,1)*oneminust) amrray_ix_next = amrray_ix_next - 1
++            if(theta0>bxi(2,2)+tol) amrray_iy_next = amrray_iy_next + 1
++            if(theta0<bxi(1,2)-tol) amrray_iy_next = amrray_iy_next - 1
++            if(phi0>bxi(2,3)+tol) amrray_iz_next = amrray_iz_next + 1
++            if(phi0<bxi(1,3)-tol) amrray_iz_next = amrray_iz_next - 1
+          endif
+       endif
+    endif
 diff --git a/version_0.41/src/camera_module.f90 b/version_0.41/src/camera_module.f90
 index ec59d19..b85c559 100644
 --- a/version_0.41/src/camera_module.f90
