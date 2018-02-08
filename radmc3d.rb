@@ -7,7 +7,7 @@ class Radmc3d < Formula
   version '0.41_107.07.17_2'
 
   depends_on 'gcc'
-  depends_on 'glibc'
+  depends_on 'glibc' unless OS.mac?
 
   def patches 
     DATA
