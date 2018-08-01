@@ -14,7 +14,7 @@ class Galario < Formula
     Dir.chdir("build")
     system "cmake", *std_cmake_args,
                     "-DGALARIO_CHECK_CUDA=0",
-                    "-DPython_ADDITIONAL_VERSIONS=3.6", ".."
+                    "-DPython_ADDITIONAL_VERSIONS=3.7", ".."
     system "make"
     system "make", "install"
   end
