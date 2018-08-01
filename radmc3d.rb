@@ -4,14 +4,12 @@ class Radmc3d < Formula
   homepage 'http://www.ita.uni-heidelberg.de/~dullemond/software/radmc-3d/'
   url 'http://www.ita.uni-heidelberg.de/~dullemond/software/radmc-3d/radmc-3d_v0.41_07.07.17.zip'
   sha256 '11dea10c3508dc5aaea68fad01fa9123fe62e490b1c8c0d603a78a4c08da05e9'
-  version '0.41_107.07.17_2'
+  version_scheme 1
 
   depends_on 'gcc'
   depends_on 'glibc' unless OS.mac?
 
-  def patches 
-    DATA
-  end
+  patch :DATA
 
   def install
     ENV.deparallelize
