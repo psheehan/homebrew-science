@@ -2,7 +2,7 @@ require 'formula'
 
 class Radmc3d < Formula
   homepage 'http://www.ita.uni-heidelberg.de/~dullemond/software/radmc-3d/'
-  head 'https://github.com/psheehan/radmc3d-0.41.git'
+  head 'https://github.com/psheehan/radmc3d-2.0.git'
   version_scheme 2
 
   depends_on 'gcc'
